@@ -20,6 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+var clickToLoginButton = document.getElementsByClassName('beatmapDownloadButton');
+
+if (clickToLoginButton.length > 0)
+{
+	var regex = /https:\/\/osu.ppy.sh\/s\/(\d{1,8})/ig;
+	var element = clickToLoginButton[0];
+	var match = regex.exec(window.location.href);
+	
+	element.innerHTML = '<a class="beatmap_download_link" href="http://bloodcat.com/osu/s/' + match[1] + '"><img src="//s.ppy.sh/images/osu-download-beatmap.png"></a>';
+}
+
 var elements = document.getElementsByClassName('beatmap_download_link');
 
 for (var i = 0; i < elements.length; i++)
@@ -30,7 +41,18 @@ for (var i = 0; i < elements.length; i++)
 	
 	if (match != null)
 	{
-		//element.href = 'http://bloodcat.com/osu/?q=' + match[1] + '&!b';
 		element.href = 'http://bloodcat.com/osu/s/' + match[1].replace(/n/g, '');
+	}
+	else
+	{
+		if (element.href.length > 0 &&
+			element.href[element.href.length - 1] === '#')
+		{
+			var newElement = element.cloneNode(true);
+			newElement.className = element.className.replace(/(\s|^)require-login(\s|$)/, '');
+			newElement.href = 'http://bloodcat.com/osu/s/' + element.parentNode.parentNode.id;
+			
+			element.parentNode.replaceChild(newElement, element);
+		}
 	}
 }

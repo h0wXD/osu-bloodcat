@@ -2,6 +2,21 @@
 
 osu! bloodcat is a Chrome extension which manipulates the osu! website to download songs by default from bloodcat.
 
-## Available in the Chrome Web Store:
+This chrome extension is for people who do not have the osu! supporter tag. It enables any players to download songs without limits from bloodcat directly from the osu! website. It also enables downloading songs without logging in (via bloodcat).
 
-	https://chrome.google.com/webstore/detail/osu-bloodcat/jagioimcpnmkngadhplaokdfbedbogko
+A note for people who have the osu! supporter tag. Your downloads are not limited, and thus you should not be using this extension.
+
+## Available for download in the Chrome Web Store
+
+https://chrome.google.com/webstore/detail/osu-bloodcat/jagioimcpnmkngadhplaokdfbedbogko
+
+## Changelog
+
+Version 1.0.3
+Allows downloading songs when not logged in on the website.
+
+Version 1.0.2
+Added support for downloading in the songlist page.
+
+Version 1.0.1
+Initial version.

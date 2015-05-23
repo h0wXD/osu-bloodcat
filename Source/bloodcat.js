@@ -20,12 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-var regex = /https:\/\/osu.ppy.sh\/d\/(\d{1,8})/ig;
-var element = document.getElementsByClassName('beatmap_download_link')[0];
-var match = regex.exec(element.href);
+var elements = document.getElementsByClassName('beatmap_download_link');
 
-if (match != null)
+for (var i = 0; i < elements.length; i++)
 {
-	//element.href = 'http://bloodcat.com/osu/?q=' + match[1] + '&!b';
-	element.href = 'http://bloodcat.com/osu/s/' + match[1];
+	var regex = /https:\/\/osu.ppy.sh\/d\/([0-9n]{1,8})/ig;
+	var element = elements[i];
+	var match = regex.exec(element.href);
+	
+	if (match != null)
+	{
+		//element.href = 'http://bloodcat.com/osu/?q=' + match[1] + '&!b';
+		element.href = 'http://bloodcat.com/osu/s/' + match[1].replace(/n/g, '');
+	}
 }

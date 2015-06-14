@@ -25,10 +25,34 @@ var clickToLoginButton = document.getElementsByClassName('beatmapDownloadButton'
 if (clickToLoginButton.length > 0)
 {
 	var regex = /https:\/\/osu.ppy.sh\/s\/(\d{1,8})/ig;
-	var element = clickToLoginButton[0];
+	var element = null;
 	var match = regex.exec(window.location.href);
 	
-	element.innerHTML = '<a class="beatmap_download_link" href="http://bloodcat.com/osu/s/' + match[1] + '"><img src="//s.ppy.sh/images/osu-download-beatmap.png"></a>';
+	if (match != null)
+	{
+		element = clickToLoginButton[0];
+	}
+	else
+	{
+		regex = /\/\/b.ppy.sh\/thumb\/(\d{1,8}).*/ig;
+		var elements = document.getElementsByTagName('img');
+		
+		for (var i = 0; i < elements.length; i++)
+		{
+			match = regex.exec(elements[i].src);
+			
+			if (match != null)
+			{
+				element = clickToLoginButton[0];
+				break;
+			}
+		}
+	}
+	
+	if (element != null)
+	{
+		element.innerHTML = '<a class="beatmap_download_link" href="http://bloodcat.com/osu/s/' + match[1] + '"><img src="//s.ppy.sh/images/osu-download-beatmap.png"></a>';
+	}
 }
 
 var elements = document.getElementsByClassName('beatmap_download_link');

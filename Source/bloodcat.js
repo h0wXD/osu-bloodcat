@@ -24,7 +24,7 @@ var clickToLoginButton = document.getElementsByClassName('beatmapDownloadButton'
 
 if (clickToLoginButton.length > 0)
 {
-	var regex = /https:\/\/osu.ppy.sh\/s\/(\d{1,8})/ig;
+	var regex = /https?:\/\/osu.ppy.sh\/s\/(\d{1,8})/ig;
 	var element = null;
 	var match = regex.exec(window.location.href);
 	
@@ -59,7 +59,7 @@ var elements = document.getElementsByClassName('beatmap_download_link');
 
 for (var i = 0; i < elements.length; i++)
 {
-	var regex = /https:\/\/osu.ppy.sh\/d\/([0-9n]{1,8})/ig;
+	var regex = /https?:\/\/osu.ppy.sh\/d\/([0-9n]{1,8})/ig;
 	var element = elements[i];
 	var match = regex.exec(element.href);
 	

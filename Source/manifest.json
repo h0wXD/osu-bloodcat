@@ -3,7 +3,7 @@
 
   "name": "osu! bloodcat",
   "description": "This extension manipulates the osu! website to download songs by default from bloodcat.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   
   "icons":
   { 
@@ -17,13 +17,14 @@
   
   "permissions":
   [
+    "http://osu.ppy.sh/*",
     "https://osu.ppy.sh/*"
   ],
   
   "content_scripts":
   [
     {
-      "matches": ["https://osu.ppy.sh/*"],
+      "matches": ["http://osu.ppy.sh/*", "https://osu.ppy.sh/*"],
       "js": ["bloodcat.js"],
       "run_at": "document_end"
     }

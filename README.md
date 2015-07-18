@@ -12,6 +12,9 @@ https://chrome.google.com/webstore/detail/osu-bloodcat/jagioimcpnmkngadhplaokdfb
 
 ## Changelog
 
+Version 1.0.5
+Added support for http. Fixes download button when http download page is loaded.
+
 Version 1.0.4
 Fixed download button for links opened ingame which go to /b/id instead of /s/id.
 

@@ -80,3 +80,35 @@ for (var i = 0; i < elements.length; i++)
 		}
 	}
 }
+
+function doReplace(elements) {
+  for (var i = 0; i < elements.length; i++)
+  {
+    var regex = /https?:\/\/osu.ppy.sh\/beatmapsets\/([0-9n]{1,8})\/download/ig;
+    var element = elements[i];
+    var match = regex.exec(element.href);
+
+    if (match != null)
+    {
+      element.href = 'http://bloodcat.com/osu/s/' + match[1].replace(/n/g, '');
+    }
+  }
+}
+var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    mutation.addedNodes.forEach(function(node){
+      doReplace(node.getElementsByClassName('js-beatmapset-download-link'))
+    })
+  });
+});
+var bootstrap = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    var target = document.getElementsByClassName('beatmapsets__items')[0]
+    if (target){
+      bootstrap.disconnect()
+      doReplace(document.getElementsByClassName('js-beatmapset-download-link'))
+      observer.observe(target, { childList: true })
+    }
+  })
+})
+bootstrap.observe(document.body, { childList: true, subtree: true })

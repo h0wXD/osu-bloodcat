@@ -13,7 +13,8 @@ https://chrome.google.com/webstore/detail/osu-bloodcat/jagioimcpnmkngadhplaokdfb
 ## Changelog
 
 Version 1.0.6
-Added support for https://osu.ppy.sh/beatmapsets.
+Added support for the new homepage (https://osu.ppy.sh/beatmapsets).
+Fixed download button when not logged in on the website.
 
 Version 1.0.5
 Added support for http. Fixes download button when http download page is loaded.
@@ -29,3 +30,6 @@ Added support for downloading in the songlist page.
 
 Version 1.0.1
 Initial version.
+
+## Contribute
+Contributions are always welcome! Please do not hesitate to submit PR's for fixes / new features.

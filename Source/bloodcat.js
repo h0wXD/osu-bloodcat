@@ -80,3 +80,88 @@ for (var i = 0; i < elements.length; i++)
 		}
 	}
 }
+
+
+function doReplace(elements) {
+  for (var i = 0; i < elements.length; i++)
+  {
+    var regex = /https?:\/\/osu.ppy.sh\/beatmapsets\/([0-9n]{1,8})\/download/ig;
+    var element = elements[i];
+    var match = regex.exec(element.href);
+
+    if (match != null)
+    {
+      element.href = 'http://bloodcat.com/osu/s/' + match[1].replace(/n/g, '');
+    }
+  }
+}
+
+function doAppend(elements) {
+  for (var i = 0; i < elements.length; i++)
+  {
+    var element = elements[i].getElementsByClassName('beatmapset-panel__thumb')[0];
+    var regex = /https?:\/\/osu.ppy.sh\/beatmapsets\/([0-9n]{1,8})/ig;
+    var match = regex.exec(element.href);
+
+    if (match != null)
+    {
+      var box = elements[i].getElementsByClassName('beatmapset-panel__icons-box')[0];
+      box.innerHTML = '<a href="http://bloodcat.com/osu/s/' + match[1].replace(/n/g, '') + '" class="beatmapset-panel__icon js-beatmapset-download-link" data-turbolinks="false"><span class="fa fa-download"></span></a>';
+    }
+  }
+}
+
+var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    mutation.addedNodes.forEach(function(node){
+      var target = node.getElementsByClassName('js-beatmapset-download-link');
+      target.length ? doReplace(target) : doAppend(node.getElementsByClassName('beatmapset-panel__panel'));
+    });
+  });
+});
+
+var bootstrap = new MutationObserver(function(mutations) {
+  var target = document.getElementsByClassName('beatmapsets__items')[0];
+  if (target)
+  {
+    bootstrap.disconnect();
+    var as = document.getElementsByClassName('js-beatmapset-download-link');
+    as.length ? doReplace(as) : doAppend(document.getElementsByClassName('beatmapset-panel__panel'));
+    observer.observe(target, { childList: true });
+  }
+});
+
+var songObserver = new MutationObserver(function(mutations) {
+  var target = document.getElementsByClassName('beatmapset-header__box--main')[0];
+  if (target)
+  {
+    songObserver.disconnect();
+    var as = document.getElementsByClassName('js-beatmapset-download-link');
+    if (as.length)
+    {
+      doReplace(as);
+    }
+    else
+    {
+      var buttons = Object.assign(document.createElement('div'), {
+        className: 'beatmapset-header__buttons'
+      });
+      buttons.innerHTML = '<a href="http://bloodcat.com/osu/s/' + match[1].replace(/n/g, '') + '" data-turbolinks="false" class="btn-osu-big btn-osu-big--beatmapset-header js-beatmapset-download-link"><span class="btn-osu-big__content undefined"><span class="btn-osu-big__left"><span class="btn-osu-big__text-top">Download</span></span><span class="btn-osu-big__icon"><span class="fa fa-download"></span></span></span></a>';
+      target.appendChild(buttons);
+    }
+  }
+});
+
+if (window.location.pathname == '/beatmapsets')
+{
+  bootstrap.observe(document.body, { childList: true, subtree: true });
+}
+else
+{
+  var regex = /\/beatmapsets\/([0-9n]{1,8})/ig;
+  var match = regex.exec(window.location.pathname);
+  if (match != null)
+  {
+    songObserver.observe(document.body, { childList: true, subtree: true });
+  }
+}
